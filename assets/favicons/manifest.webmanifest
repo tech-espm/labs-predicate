@@ -1,7 +1,7 @@
 {
 	"name": "Predicate Calculus",
 	"short_name": "Predicate Calculus",
-	"start_url": "/labs-editor/",
+	"start_url": "/labs-predicate/",
 	"dir": "ltr",
 	"lang": "pt-BR",
 	"orientation": "landscape-primary",
