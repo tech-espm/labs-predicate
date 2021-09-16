@@ -1,0 +1,41 @@
+//
+// MIT License
+//
+// Copyright (c) 2021 ESPM
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+//
+// https://github.com/tech-espm/labs-predicate
+//
+
+enum TokenType {
+	Variable = 0,
+	OpeningParenthesis = 1,
+	OpeningParenthesis2 = 2,
+	OpeningParenthesis3 = 3,
+	ClosingParenthesis = 4,
+	ClosingParenthesis2 = 5,
+	ClosingParenthesis3 = 6,
+	Negation = 7,
+	Conjunction = 8,
+	Disjunction = 9,
+	Implication = 10,
+	Biconditional = 11,
+	EndOfLine = 12
+}

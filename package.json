@@ -1,0 +1,26 @@
+{
+  "name": "labs-predicate",
+  "version": "1.0.0",
+  "description": "Predicate calculus tool for in-class use.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tech-espm/labs-predicate.git"
+  },
+  "keywords": [
+    "predicate",
+    "calculus"
+  ],
+  "author": "ESPM",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tech-espm/labs-predicate/issues"
+  },
+  "homepage": "https://github.com/tech-espm/labs-predicate#readme",
+  "devDependencies": {
+    "@types/jquery": "^3.5.6"
+  }
+}

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-us">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui, shrink-to-fit=no" />
+	<meta name="color-scheme" content="light" id="metaColorScheme" />
+
+	<meta property="og:locale" content="pt_BR" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://tech-espm.github.io/labs-predicate/" />
+	<meta property="og:title" content="Predicate Calculus" />
+	<meta property="og:site_name" content="Predicate Calculus" />
+	<meta property="og:description" content="Calculadora de predicados para uso em sala de aula." />
+	<!--
+	<meta property="og:image" content="fb.jpg" />
+	<meta property="og:image:type" content="image/jpeg">
+	<meta property="og:image:width" content="768">
+	<meta property="og:image:height" content="768">
+	-->
+
+	<meta name="author" content="ESPM" />
+	<meta name="description" content="Calculadora de predicados para uso em sala de aula." />
+	<meta name="keywords" content="cálculo, predicados, predicate, calculus, calculadora de predicados" />
+
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="apple-mobile-web-app-title" content="Predicate Calculus" />
+	<meta name="mobile-web-app-capable" content="yes" />
+	<meta name="mobile-web-app-status-bar-style" content="black" />
+	<meta name="mobile-web-app-title" content="Predicate Calculus" />
+	<!--
+		https://w3c.github.io/manifest/#icon-masks
+		https://github.com/w3c/manifest/issues/555
+	-->
+	<link rel="apple-touch-icon" sizes="57x57" href="assets/favicons/apple-icon-57x57.png" />
+	<link rel="apple-touch-icon" sizes="60x60" href="assets/favicons/apple-icon-60x60.png" />
+	<link rel="apple-touch-icon" sizes="72x72" href="assets/favicons/apple-icon-72x72.png" />
+	<link rel="apple-touch-icon" sizes="76x76" href="assets/favicons/apple-icon-76x76.png" />
+	<link rel="apple-touch-icon" sizes="114x114" href="assets/favicons/apple-icon-114x114.png" />
+	<link rel="apple-touch-icon" sizes="120x120" href="assets/favicons/apple-icon-120x120.png" />
+	<link rel="apple-touch-icon" sizes="144x144" href="assets/favicons/apple-icon-144x144.png" />
+	<link rel="apple-touch-icon" sizes="152x152" href="assets/favicons/apple-icon-152x152.png" />
+	<link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-icon-180x180.png" />
+	<link rel="icon" type="image/png" sizes="512x512" href="assets/favicons/favicon-512x512.png" />
+	<link rel="icon" type="image/png" sizes="192x192" href="assets/favicons/favicon-192x192.png" />
+	<link rel="icon" type="image/png" sizes="96x96" href="assets/favicons/favicon-96x96.png" />
+	<link rel="icon" type="image/png" sizes="48x48" href="assets/favicons/favicon-48x48.png" />
+	<link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png" />
+	<link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png" />
+	<link rel="Shortcut Icon" href="assets/favicons/favicon.ico" />
+	<link rel="Shortcut Icon" href="assets/favicons/favicon.png" />
+	<link rel="manifest" href="assets/favicons/manifest.webmanifest" />
+	<meta name="msapplication-config" content="assets/favicons/browserconfig.xml" />
+	<meta name="theme-color" content="#222222" />
+
+	<title>Predicate Calculus</title>
+
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600|Roboto+Mono:400,700" />
+	<link rel="stylesheet" href="assets/lib/bootstrap/css/bootstrap-1.0.31.min.css" />
+	<link rel="stylesheet" href="assets/lib/font-awesome/css/font-awesome-1.0.2.min.css" />
+	<link rel="stylesheet" href="assets/css/style.css?v=1.0.10" />
+</head>
+<body style="visibility: hidden">
+	<noscript>Sorry! You need to enable JavaScript in order to run the app :(</noscript>
+
+	<div class="modal fade" tabindex="-1" role="dialog" id="modalSave">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" data-string="aria-label|Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" data-string="text|Save"></h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group no-margin-bottom">
+						<label for="modalSaveFileName" data-string="text|FileName"></label>
+						<input type="text" class="form-control" id="modalSaveFileName" spellcheck="false" autocomplete="off" />
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-outline btn-default" data-dismiss="modal" data-string="text|Cancel"><i class="fa fa-margin fa-times"></i></button>
+					<button type="button" class="btn btn-primary" id="modalSaveOk" data-string="text|Save" onclick="UI.save();"><i class="fa fa-margin fa-check"></i></button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" tabindex="-1" role="dialog" id="modalTheme">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" data-string="aria-label|Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" data-string="text|Theme"></h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group no-margin-bottom">
+						<label for="modalThemeSelect" data-string="text|Theme"></label>
+						<select size="1" class="form-control" id="modalThemeSelect">
+							<option value="ace/theme/chrome">Chrome</option>
+							<option value="ace/theme/dracula">Dracula</option>
+							<option value="ace/theme/eclipse">Eclipse</option>
+							<option value="ace/theme/labs">Labs</option>
+							<option value="ace/theme/mono_industrial">Mono Industrial</option>
+							<option value="ace/theme/monokai">Monokai</option>
+							<option value="ace/theme/sqlserver">SQL Server</option>
+							<option value="ace/theme/textmate">TextMate</option>
+						</select>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-outline btn-default" data-dismiss="modal" data-string="text|Cancel"><i class="fa fa-margin fa-times"></i></button>
+					<button type="button" class="btn btn-primary" id="modalThemeOk" data-string="text|OK" onclick="UI.setTheme()"><i class="fa fa-margin fa-check"></i></button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="editor-container" id="editorContainer">
+		<div class="nav-tabs-logo">
+			<a href="https://sistemasdeinformacao.espm.edu.br" target="_blank" title="Curso de Sistemas de Informação da ESPM"><img id="editorImgLogo" width="75" height="29" src="assets/images/logo.png?1" style="border: none;" /></a>
+			|
+			<a href="https://github.com/tech-espm/labs-predicate" target="_blank" title="GitHub"><img id="editorImgLogoGit" width="29" height="29" src="assets/images/logo-github.png?1" style="border: none;" /></a>
+		</div>
+		<div class="nav-tabs-buttons">
+			<button type="button" id="btnStep" class="btn btn-success btn-outline" data-string="title|ShowNextDeduction" onclick="UI.step()"><span class="fa fa-play"></span></button>
+			<button type="button" id="btnStop" class="btn btn-primary btn-outline" data-string="title|StopDeducting" onclick="UI.stop()" style="display: none;"><span class="fa fa-stop"></span></button>
+		</div>
+		<div class="nav-tabs-menu">
+			<button type="button" id="editorMenuDropdown" data-string="text|Menu" class="btn btn-primary btn-outline dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-margin fa-bars"></i></button>
+			<ul class="dropdown-menu dropdown-menu-right">
+				<li><a href="#" data-string="text|New" id="editorActionNew" onclick="UI.clear(); return false;"><i class="fa fa-margin fa-file-o"></i></a></li>
+				<li role="separator" class="divider"></li>
+				<li><a href="#" data-string="text|LoadEllipsis" id="editorActionLoad" onclick="UI.load(); return false;"><i class="fa fa-margin fa-folder-open-o"></i></a></li>
+				<li><a href="#" data-string="text|SaveEllipsis" id="editorActionSave" onclick="UI.showModalSave(); return false;"><i class="fa fa-margin fa-cloud-download"></i></a></li>
+				<li role="separator" class="divider"></li>
+				<li><a href="#" data-string="text|LoadExample" id="editorActionLoadExample" onclick="UI.loadExample(); return false;"><i class="fa fa-margin fa-lightbulb-o"></i></a></li>
+				<li id="editorActionInstallSeparator" role="separator" class="divider" style="display: none;"></li>
+				<li id="editorActionInstallItem" style="display: none;"><a href="#" id="editorActionInstall" data-string="text|InstallEllipsis" onclick="UI.install(); return false;"><i class="fa fa-margin fa-download"></i></a></li>
+				<li role="separator" class="divider"></li>
+				<li><a href="#" id="editorActionToggleWrapMode" onclick="UI.toggleWrapMode(true); return false;"><i id="editorActionToggleWrapModeIcon" class="fa fa-margin fa-square-o"></i><span data-string="text|WrapMode"></span></a></li>
+				<li role="separator" class="divider"></li>
+				<li><a href="#" data-string="text|ThemeEllipsis" id="editorActionTheme" onclick="UI.showModalTheme(); return false;"><i class="fa fa-margin fa-paint-brush"></i></a></li>
+			</ul>
+			<div class="nav-tabs-file-load"><input id="editorActionFileLoad" tabindex="-1" type="file" accept="text/plain" /></div>
+		</div>
+		<div id="editor" class="editor-html"></div>
+	</div>
+
+	<script type="text/javascript" src="assets/lib/jquery/jquery-1.0.1.min.js"></script>
+	<script type="text/javascript" src="assets/lib/bootstrap/js/bootstrap-1.0.1.min.js"></script>
+	<script type="text/javascript" src="assets/lib/ace-1.4.7/ace.js"></script>
+	<script type="text/javascript" src="assets/lib/ace-1.4.7/ext-searchbox.js"></script>
+	<script type="text/javascript" src="assets/lib/ace-1.4.7/ext-language_tools.js"></script>
+	<script type="text/javascript">
+		//<![CDATA[
+		"use strict";
+
+		var CACHE_VERSION = "20210916";
+
+		(function () {
+			function loadScript(src, successCallback, errorCallback) {
+				window.onerror = errorCallback;
+				var s = document.createElement("script");
+				s.setAttribute("type", "text/javascript");
+				s.setAttribute("charset", "utf-8");
+				document.body.appendChild(s);
+				s.onload = successCallback;
+				s.onerror = errorCallback;
+				s.setAttribute("src", src);
+				return s;
+			}
+
+			function showError(msg, a) {
+				var i;
+				if (a && a.length) {
+					// Firefox for iOS, user agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1 Safari/605.1.15,
+					// reports a script error when loading the scripts but nothing is wrong! Everything works fine!
+					// Not even this prevented the script error from being generated: https://stackoverflow.com/a/7778424/3569421
+					if (a[0] && (a[0] == "Script error" || a[0] == "Script error."))
+						return;
+					msg += "\n\nError: " + a[0];
+					for (i = 1; i < a.length; i++)
+						msg += ", " + a[i];
+				}
+				alert(msg);
+			}
+
+			function loadMainScript(version) {
+				// All TS files are being concatenated into a single file according to the
+				// order specified in the files array, inside tsconfig.json
+				loadScript("assets/js/scripts." + (version ? (version + ".") : version) + "min.js?" + CACHE_VERSION, function () {
+					window.onerror = showError;
+				}, function (msg, url, line, col, error) {
+					showError("Impossible to load the main script :(", arguments);
+				});
+			}
+
+			function loadLibScript() {
+				// Trying to add a script to the body element, then removing it and adding
+				// another version leads to duplicate variable declaration (using let/const),
+				// because all globals remain declared, even if the script tag is removed.
+				// Therefore, we need to know the exact version that must be loaded.
+				// According to Can I Use:
+				// https://caniuse.com/wasm / https://caniuse.com/mdn-javascript_operators_await
+				// if a browser has support for WebAssembly it also has support for async/await
+				// (but not the opposite).
+				if ("WebAssembly" in window)
+					loadMainScript("");
+				else
+					loadMainScript("es6");
+			}
+
+			// Modified version of https://stackoverflow.com/a/29046739/3569421
+			function checkES6() {
+				try {
+					if ((typeof Symbol) == "undefined")
+						return false;
+					var a;
+					eval("a = `1`");
+				} catch (ex) {
+					return false;
+				}
+				return true;
+			}
+
+			// We can assume Promise is available in the browser because we are checking it down below
+			if (!("queueMicrotask" in window))
+				window.queueMicrotask = function (callback) {
+					Promise.resolve()
+						.then(callback)
+						.catch(e => setTimeout(() => { throw e; }));
+				};
+
+			// Even though Promise can be polyfilled, we are using this as a way to try to
+			// figure out other features supported by the browser
+			// https://caniuse.com/promises
+			// https://caniuse.com/url
+			// https://caniuse.com/bloburls
+			// https://caniuse.com/fetch
+			// https://caniuse.com/es6
+			if (!("Promise" in window) || !("URL" in window) || !("createObjectURL" in URL) || !("fetch" in window) || !checkES6())
+				alert("Sorry, but your browser does not meet the minimum requirements :(");
+			else
+				loadLibScript();
+		})();
+		//]]>
+	</script>
+</body>
+</html>
