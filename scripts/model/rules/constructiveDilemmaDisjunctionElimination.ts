@@ -36,7 +36,7 @@ class ConstructiveDilemmaDisjunctionElimination extends Rule {
 
 		let newEvaluatable: Evaluatable;
 
-		return (((ea instanceof Implication) && (eb instanceof Implication) && ec.isEquivalent(Disjunction.create([ea.operandA, eb.operandA]))) ?
+		return (((ea instanceof Implication) && (eb instanceof Implication) && !ea.operandA.isEquivalent(eb.operandA) && ec.isEquivalent(Disjunction.create([ea.operandA, eb.operandA]))) ?
 			[
 				{
 					newEvaluatable: (newEvaluatable = Disjunction.create([ea.operandB, eb.operandB])),
