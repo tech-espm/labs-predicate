@@ -247,7 +247,7 @@ class TokenStream {
 					while (this.index < code.length) {
 						c = code.charCodeAt(this.index);
 
-						if (c !== 0x005F && (c < 0x0030 || (c > 0x0039 && c < 0x0041) || (c > 0x005A && c < 0x0061) || c > 0x007A)) {
+						if (c !== 0x005F && (c === 0x0076 || c < 0x0030 || (c > 0x0039 && c < 0x0041) || (c > 0x005A && c < 0x0061) || c > 0x007A)) {
 							if (!length)
 								throw new InterpreterError(Strings.ErrorInvalidChar + String.fromCharCode(c), i, this.line, lineIndex);
 
