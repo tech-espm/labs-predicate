@@ -88,6 +88,6 @@ class Implication extends Evaluatable {
 			return internalResult;
 		}
 
-		return (this.axiomOfInterest ? (this.axiomOfInterest.equivalence > 0) : internalResult);
+		return (this.axiomOfInterest ? (this.axiomOfInterest.equivalence > 0) : null);
 	}
 }

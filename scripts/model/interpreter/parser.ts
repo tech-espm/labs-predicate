@@ -151,16 +151,15 @@ class Parser {
 	}
 
 	private static parseConditional(tokenStream: TokenStream, variables?: VariableCollection | null, axiomContext?: AxiomContext | null): Evaluatable {
-		let operand = Parser.parseExpression(tokenStream, variables, axiomContext),
-			token = tokenStream.peekToken();
+		let operand = Parser.parseExpression(tokenStream, variables, axiomContext);
 
-		while (token && token.isConditionalOperator) {
+		const token = tokenStream.peekToken();
+
+		if (token && token.isConditionalOperator) {
 			tokenStream.getToken();
 
-			const operandB = Parser.parseExpression(tokenStream, variables, axiomContext);
+			const operandB = Parser.parseConditional(tokenStream, variables, axiomContext);
 			operand = ((token.type === TokenType.Implication) ? new Implication(operand, operandB) : new Biconditional(operand, operandB));
-
-			token = tokenStream.peekToken();
 		}
 
 		return operand;

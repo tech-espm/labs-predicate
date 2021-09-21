@@ -191,7 +191,7 @@ class Strings {
 			Strings.ErrorUnexpectedEndOfCode = "Fim de código inesperado.";
 			Strings.ErrorUnexpectedEndOfCodeUnaryExpected = "Fim de código inesperado. Era esperado uma variável, negação ou (.";
 			Strings.ErrorUnexpectedEndOfLineUnaryExpected = "Término de linha inesperado. Era esperado uma variável, negação ou (.";
-			Strings.ErrorEndOfLineExpected = "Término de linha inesperado.";
+			Strings.ErrorEndOfLineExpected = "Era esperado um término de linha.";
 			Strings.ErrorUnexpectedOperatorUnaryExpected = "Operador inesperado. Era esperado uma variável, negação ou (.";
 			Strings.ErrorUnaryExpected = "Caractere inválido encontrado. Era esperado uma variável, negação ou (.";
 			Strings.ErrorClosingParenthesisExpected = "Era esperado um ).";
