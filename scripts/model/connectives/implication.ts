@@ -76,14 +76,24 @@ class Implication extends Evaluatable {
 
 	protected evaluateValueInternal(): boolean | null {
 		// Evaluate all operands in order to check for inconsistencies
-		let internalResult = this.operandA.evaluateValue();
-		const b = this.operandB.evaluateValue();
+		const a = this.operandA.evaluateValue(),
+			b = this.operandB.evaluateValue();
 
-		if (internalResult !== null && b !== null) {
-			internalResult = !internalResult || b;
+		let internalResult: boolean | null = null;
 
+		if (a === null) {
+			if (b)
+				internalResult = true;
+		} else if (b === null) {
+			if (!a)
+				internalResult = true;
+		} else {
+			internalResult = !a || b;
+		}
+
+		if (internalResult !== null) {
 			if (this.axiomOfInterest && internalResult !== (this.axiomOfInterest.equivalence > 0))
-				throw new Error(Strings.ErrorInconsistentExpression + this.toString() + Strings.ErrorInconsistentExpression2 + (this.axiomOfInterest.equivalence > 0 ? Strings.True : Strings.False) + + Strings.ErrorInconsistentExpression3because + this.axiomOfInterest.axiom.id + Strings.ErrorInconsistentExpression3 + (internalResult ? Strings.True : Strings.False));
+				throw new Error(Strings.ErrorInconsistentExpression + this.toString() + Strings.ErrorInconsistentExpression2 + ((this.axiomOfInterest.equivalence > 0) ? Strings.True : Strings.False) + Strings.ErrorInconsistentExpression3because + this.axiomOfInterest.axiom.id + Strings.ErrorInconsistentExpression3 + (internalResult ? Strings.True : Strings.False));
 
 			return internalResult;
 		}
