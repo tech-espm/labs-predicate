@@ -34,6 +34,10 @@ class Conjunction extends Connective {
 		super(operands, skipSort, TokenStrings.ConjunctionSpace, Conjunction);
 	}
 
+	public get factoryMethod(): ConnectiveFactoryMethod {
+		return Conjunction.create;
+	}
+
 	public evaluateEquivalence(): boolean {
 		const operands = this.operands;
 
@@ -66,6 +70,9 @@ class Conjunction extends Connective {
 				r = false;
 			}
 		}
+
+		if (this.containsOppositeOperators)
+			return false;
 
 		if (!r || !unusedVariables.size)
 			return r;

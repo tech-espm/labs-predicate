@@ -27,7 +27,7 @@
 class SubExpression extends Evaluatable {
 	public readonly evaluatable: Evaluatable;
 	private readonly openingParenthesis: string;
-	private readonly closingParenthesis: string
+	private readonly closingParenthesis: string;
 
 	public constructor(evaluatable: Evaluatable, openingParenthesis?: string, closingParenthesis?: string) {
 		super(true);

@@ -34,6 +34,10 @@ class Disjunction extends Connective {
 		super(operands, skipSort, TokenStrings.DisjunctionSpace, Disjunction);
 	}
 
+	public get factoryMethod(): ConnectiveFactoryMethod {
+		return Disjunction.create;
+	}
+
 	public evaluateEquivalence(): boolean {
 		const operands = this.operands;
 
@@ -66,6 +70,9 @@ class Disjunction extends Connective {
 				r = true;
 			}
 		}
+
+		if (this.containsOppositeOperators)
+			return true;
 
 		if (r || !unusedVariables.size)
 			return r;

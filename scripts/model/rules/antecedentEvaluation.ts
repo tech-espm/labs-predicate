@@ -37,7 +37,7 @@ class AntecedentEvaluation extends Rule {
 			if (v === null)
 				return true;
 
-			// No need to try to apply this rule again to this pair of axioms
+			// No need to try to apply this rule again to this axiom
 			if (v === false)
 				return false;
 

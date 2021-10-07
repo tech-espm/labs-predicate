@@ -40,7 +40,9 @@ class ConstructiveDilemmaDisjunctionElimination extends Rule {
 			[
 				{
 					newEvaluatable: (newEvaluatable = Disjunction.create([ea.operandB, eb.operandB])),
-					explanation: this.createFullExplanation((newEvaluatable instanceof Disjunction) ? Strings.ConstructiveDilemma : Strings.DisjunctionElimination, a, b, c)
+					// Ignore the disjunction elimination as it is just a special case of the constructive dilemma
+					//explanation: this.createFullExplanation((newEvaluatable instanceof Disjunction) ? Strings.ConstructiveDilemma : Strings.DisjunctionElimination, a, b, c)
+					explanation: this.createFullExplanation(Strings.ConstructiveDilemma, a, b, c)
 				}
 			]
 			:

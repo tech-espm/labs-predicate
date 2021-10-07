@@ -32,7 +32,7 @@ class Negation extends Evaluatable {
 
 		const actualEvaluatable = evaluatable.actualEvaluatable;
 
-		this.evaluatable = (actualEvaluatable.isUnary ? actualEvaluatable : new SubExpression(actualEvaluatable));
+		this.evaluatable = (actualEvaluatable.isUnary ? actualEvaluatable : (evaluatable.isUnary ? evaluatable : new SubExpression(actualEvaluatable)));
 	}
 
 	public equals(o: ModelObject | null): boolean {

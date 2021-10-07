@@ -31,9 +31,9 @@ class Strings {
 	public static OppositeDecimalSeparator = ",";
 	public static Oops = "Oops\u2026";
 
-	public static AntecedentEvaluation = "Antecedent Evaluation";
+	public static AntecedentEvaluation = "Antecedent evaluates as True";
 	public static BiconditionalElimination = "Biconditional Elimination";
-	public static ConsequentEvaluation = "Consequent Evaluation";
+	public static ConsequentEvaluation = "Consequent evaluates as False";
 	public static ConstructiveDilemma = "Constructive Dilemma";
 	public static DestructiveDilemma = "Destructive Dilemma";
 	public static DisjunctionElimination = "Disjunction Elimination";
@@ -129,9 +129,9 @@ class Strings {
 			Strings.OppositeDecimalSeparator = ".";
 			//Strings.Oops = "Oops\u2026";
 
-			Strings.AntecedentEvaluation = "Avaliação de Antecedente";
+			Strings.AntecedentEvaluation = "Antecedente vale Verdadeiro";
 			Strings.BiconditionalElimination = "Eliminação de Bicondicional";
-			Strings.ConsequentEvaluation = "Avaliação de Consequente";
+			Strings.ConsequentEvaluation = "Consequente vale Falso";
 			Strings.ConstructiveDilemma = "Dilema Construtivo";
 			Strings.DestructiveDilemma = "Dilema Destrutivo";
 			Strings.DisjunctionElimination = "Eliminação de Disjunção";

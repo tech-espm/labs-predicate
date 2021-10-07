@@ -33,6 +33,7 @@ abstract class Connective extends Evaluatable {
 	protected readonly originalOperands: Evaluatable[];
 	private readonly connector: string;
 	protected readonly axiomsOfInterest: AxiomOfInterestMap;
+	protected readonly containsOppositeOperators: boolean;
 
 	protected constructor(operands: Evaluatable[], skipSort: boolean | undefined, connector: string, clazz: any) {
 		super(false);
@@ -41,8 +42,18 @@ abstract class Connective extends Evaluatable {
 		this.connector = connector;
 		this.axiomsOfInterest = createAxiomOfInterestMap();
 
+		let containsOppositeOperators = false;
+
 		if (skipSort) {
 			this.operands = operands;
+
+			// Check for the existence of opposite operators (assume the operands are already properly sorted)
+			for (let i = operands.length - 2; i >= 0; i--) {
+				if (operands[i].isEquivalentSomehow(operands[i + 1]) < 0) {
+					containsOppositeOperators = true;
+					break;
+				}
+			}
 		} else {
 			const actualOperands: Evaluatable[] = [];
 
@@ -87,20 +98,30 @@ abstract class Connective extends Evaluatable {
 
 			sortedOperands.sort((a, b) => ((a.sortedVariables < b.sortedVariables) ? -1 : 1));
 
-			// Remove possibly repeated operands
+			// Remove possibly repeated operands and check for the existence of opposite operators
 			for (let i = sortedOperands.length - 2; i >= 0; i--) {
-				if (sortedOperands[i].sortedVariables !== sortedOperands[i + 1].sortedVariables ||
-					!sortedOperands[i].operand.isEquivalent(sortedOperands[i + 1].operand))
+				if (sortedOperands[i].sortedVariables !== sortedOperands[i + 1].sortedVariables)
 					continue;
 
-				sortedOperands.splice(i + 1, 1);
+				switch (sortedOperands[i].operand.isEquivalentSomehow(sortedOperands[i + 1].operand)) {
+					case 1:
+						sortedOperands.splice(i + 1, 1);
+						break;
+					case -1:
+						containsOppositeOperators = true;
+						break;
+				}
 			}
 
 			this.operands = new Array(sortedOperands.length);
 			for (let i = sortedOperands.length - 1; i >= 0; i--)
 				this.operands[i] = sortedOperands[i].operand;
 		}
+
+		this.containsOppositeOperators = containsOppositeOperators;
 	}
+
+	public abstract get factoryMethod(): ConnectiveFactoryMethod;
 
 	public equals(o: ModelObject | null): boolean {
 		if (!(o instanceof Evaluatable))
@@ -203,8 +224,7 @@ abstract class Connective extends Evaluatable {
 		if (operandsLength < 2)
 			return;
 
-		const factoryMethod = ((this instanceof Conjunction) ? Conjunction.create : Disjunction.create),
-			maxSize = operandsLength,
+		const maxSize = operandsLength,
 			maxIndex = operandsLength - 1,
 			counters: number[] = new Array(maxSize),
 			idSet = new IdSet();
@@ -228,7 +248,7 @@ abstract class Connective extends Evaluatable {
 				for (let i = size - 1; i >= 0; i--)
 					newOperands[i] = operands[counters[i]];
 
-				const equivalence = factoryMethod(newOperands, true).isEquivalentSomehow(evaluatable);
+				const equivalence = this.factoryMethod(newOperands, true).isEquivalentSomehow(evaluatable);
 
 				if (equivalence) {
 					this.axiomsOfInterest.set(axiom.id, {
