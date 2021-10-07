@@ -56,12 +56,38 @@ class Axiom extends ModelObject {
 					r = false;
 					break;
 
-				case 0:
-					break;
-
 				case -1:
 					throw new Error(Strings.ErrorInconsistentAxioms + this.id + " / " + axioms[i].id);
 			}
+		}
+
+		// Avoid creating a new axiom that is just a plain combination of other already existing axioms
+		// (just to try to reduce the number of useless deductions)
+		if (r && (this.evaluatable instanceof Connective)) {
+			let equivalenceCount = 0;
+
+			const operands = this.evaluatable.operands;
+
+			for (let o = operands.length - 1; o >= 0; o--) {
+				const operand = operands[o];
+
+				let equivalent = false;
+
+				for (let i = axiomIndex - 1; i >= 0; i--) {
+					if (operand.isEquivalent(axioms[i].evaluatable)) {
+						equivalent = true;
+						break;
+					}
+				}
+
+				if (!equivalent)
+					break;
+
+				equivalenceCount++;
+			}
+
+			if (equivalenceCount === operands.length)
+				r = false;
 		}
 
 		return r;

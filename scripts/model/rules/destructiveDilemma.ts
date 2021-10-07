@@ -34,7 +34,11 @@ class DestructiveDilemma extends Rule {
 			eb = b.evaluatable,
 			ec = c.evaluatable;
 
-		return (((ea instanceof Implication) && (eb instanceof Implication) && ec.isEquivalent(Disjunction.create([new Negation(ea.operandB), new Negation(eb.operandB)]))) ?
+		// !ea.operandB.isEquivalent(eb.operandB) to prevent applying the destructive dilemma in cases like this:
+		// a > c
+		// b > c
+		// -c
+		return (((ea instanceof Implication) && (eb instanceof Implication) && !ea.operandB.isEquivalent(eb.operandB) && ec.isEquivalent(Disjunction.create([new Negation(ea.operandB), new Negation(eb.operandB)]))) ?
 			[
 				{
 					newEvaluatable: Disjunction.create([new Negation(ea.operandA), new Negation(eb.operandA)]),
