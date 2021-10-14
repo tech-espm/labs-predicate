@@ -64,6 +64,10 @@ class Negation extends Evaluatable {
 		return (evaluatedValue === null ? null : !evaluatedValue);
 	}
 
+	public causesForEvaluation(): Axiom[] | null {
+		return this.evaluatable.causesForEvaluation();
+	}
+
 	public get usedVariables(): VariableMap {
 		return this.evaluatable.usedVariables;
 	}

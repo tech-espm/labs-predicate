@@ -368,9 +368,14 @@ class UI {
 		($("#modalSave") as any).modal("hide");
 	}
 
-	public static loadExample(): void {
+	public static showExplanation(): void {
 		if (UI.loading)
 			return;
+
+		($("#modalExplanation") as any).modal({
+			keyboard: true,
+			backdrop: true
+		});
 	}
 
 	public static install(): void {

@@ -41,10 +41,14 @@ class AntecedentEvaluation extends Rule {
 			if (v === false)
 				return false;
 
+			let causes = ea.operandA.causesForEvaluation();
+			if (!causes || !causes.length)
+				causes = [a];
+
 			return [
 				{
 					newEvaluatable: ea.operandA,
-					explanation: this.createExplanation(a)
+					explanation: this.createFullExplanation(Strings.AntecedentEvaluation1 + a.id + Strings.AntecedentEvaluation2, ...causes)
 				}
 			];
 		}

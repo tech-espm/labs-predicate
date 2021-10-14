@@ -114,6 +114,21 @@
 		</div>
 	</div>
 
+	<div class="modal fade" tabindex="-1" role="dialog" id="modalExplanation">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" data-string="aria-label|Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" data-string="text|Explanation"></h4>
+				</div>
+				<div class="modal-body monospace" style="white-space: pre-line;" data-string="text|ExplanationBody"></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-outline btn-default" data-dismiss="modal" data-string="text|Close"><i class="fa fa-margin fa-times"></i></button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<div class="editor-container" id="editorContainer">
 		<div class="nav-tabs-logo">
 			<a href="https://sistemasdeinformacao.espm.edu.br" target="_blank" title="Curso de Sistemas de Informação da ESPM"><img id="editorImgLogo" width="75" height="29" src="assets/images/logo.png?1" style="border: none;" /></a>
@@ -132,7 +147,7 @@
 				<li><a href="#" data-string="text|LoadEllipsis" id="editorActionLoad" onclick="UI.load(); return false;"><i class="fa fa-margin fa-folder-open-o"></i></a></li>
 				<li><a href="#" data-string="text|SaveEllipsis" id="editorActionSave" onclick="UI.showModalSave(); return false;"><i class="fa fa-margin fa-cloud-download"></i></a></li>
 				<li role="separator" class="divider"></li>
-				<li><a href="#" data-string="text|LoadExample" id="editorActionLoadExample" onclick="UI.loadExample(); return false;"><i class="fa fa-margin fa-lightbulb-o"></i></a></li>
+				<li><a href="#" data-string="text|ShowExplanation" id="editorActionShowExplanation" onclick="UI.showExplanation(); return false;"><i class="fa fa-margin fa-lightbulb-o"></i></a></li>
 				<li id="editorActionInstallSeparator" role="separator" class="divider" style="display: none;"></li>
 				<li id="editorActionInstallItem" style="display: none;"><a href="#" id="editorActionInstall" data-string="text|InstallEllipsis" onclick="UI.install(); return false;"><i class="fa fa-margin fa-download"></i></a></li>
 				<li role="separator" class="divider"></li>
@@ -154,7 +169,7 @@
 		//<![CDATA[
 		"use strict";
 
-		var CACHE_VERSION = "20211007";
+		var CACHE_VERSION = "20211014";
 
 		(function () {
 			function loadScript(src, successCallback, errorCallback) {

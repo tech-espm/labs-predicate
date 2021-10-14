@@ -75,6 +75,7 @@ abstract class Evaluatable extends ModelObject {
 	public abstract collectVariables(usedVariables: VariableMap): void;
 	public abstract evaluateEquivalence(): boolean;
 	protected abstract evaluateValueInternal(): boolean | null;
+	public abstract causesForEvaluation(): Axiom[] | null;
 
 	public get usedVariables(): VariableMap {
 		if (!this._usedVariables) {

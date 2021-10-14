@@ -61,6 +61,10 @@ class SubExpression extends Evaluatable {
 		return this.evaluatable.evaluateValue();
 	}
 
+	public causesForEvaluation(): Axiom[] | null {
+		return this.evaluatable.causesForEvaluation();
+	}
+
 	public get usedVariables(): VariableMap {
 		return this.evaluatable.usedVariables;
 	}

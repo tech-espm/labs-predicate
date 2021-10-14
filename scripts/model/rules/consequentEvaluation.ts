@@ -41,10 +41,14 @@ class ConsequentEvaluation extends Rule {
 			if (v === true)
 				return false;
 
+			let causes = ea.operandA.causesForEvaluation();
+			if (!causes || !causes.length)
+				causes = [a];
+	
 			return [
 				{
 					newEvaluatable: new Negation(ea.operandB),
-					explanation: this.createExplanation(a)
+					explanation: this.createFullExplanation(Strings.ConsequentEvaluation1 + a.id + Strings.ConsequentEvaluation2, ...causes)
 				}
 			];
 		}

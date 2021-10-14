@@ -31,9 +31,13 @@ class Strings {
 	public static OppositeDecimalSeparator = ",";
 	public static Oops = "Oops\u2026";
 
-	public static AntecedentEvaluation = "Antecedent evaluates as True";
+	public static AntecedentEvaluation = "Antecedent Evaluation";
+	public static AntecedentEvaluation1 = "Antecedent of ";
+	public static AntecedentEvaluation2 = " evaluates as True because of";
 	public static BiconditionalElimination = "Biconditional Elimination";
-	public static ConsequentEvaluation = "Consequent evaluates as False";
+	public static ConsequentEvaluation = "Consequent Evaluation";
+	public static ConsequentEvaluation1 = "Consequent of ";
+	public static ConsequentEvaluation2 = " evaluates as False because of";
 	public static ConstructiveDilemma = "Constructive Dilemma";
 	public static DestructiveDilemma = "Destructive Dilemma";
 	public static DisjunctionElimination = "Disjunction Elimination";
@@ -57,7 +61,7 @@ class Strings {
 	public static LoadEllipsis = "Load\u2026";
 	public static Save = "Save";
 	public static SaveEllipsis = "Save\u2026";
-	public static LoadExample = "Load Example";
+	public static ShowExplanation = "Show Explanation\u2026";
 	public static InstallEllipsis = "Install\u2026";
 	public static WrapMode = "Line Wrap";
 
@@ -67,6 +71,7 @@ class Strings {
 	public static Disable = "Disable";
 	public static Enabled = "Enabled";
 	public static Disabled = "Disabled";
+	public static Explanation = "Explanation";
 	public static OK = "OK";
 	public static Cancel = "Cancel";
 	public static Clear = "Clear";
@@ -116,6 +121,45 @@ class Strings {
 	public static ErrorTooManyVariables = "More than 256 declared variables.";
 	public static ErrorUnknownVariable = "Unknown variable: ";
 
+	public static ExplanationBody = `Operators
+=========
+
+^ & . ∧ ⋅ can be used as conjunction (AND)
+
+v | ∨ can be used as disjunction (OR)
+
+> → ⊃ can be used as implication
+
+= ↔ ≡ can be used as biconditional
+
+~ - ¬ can be used as negation
+
+Comments
+========
+
+Single-line comments can be created using the character # (everything after a # is ignored).
+
+Order of Precedence
+===================
+
+Conjunctions and disjunctions are evaluated in the same order they are written, from left to right. Therefore, both expressions below are considered equivalent:
+
+a ∨ b ∧ c ∨ d
+
+((a ∨ b) ∧ c) ∨ d)
+
+Implications and biconditionals take precedence over conjunctions and disjunctions. Likewise, both expressions below are equivalent:
+
+a ∨ b → c ∨ d
+
+(a ∨ b) → (c ∨ d)
+
+Cascading implications are also evaluated from left to right, making both expressions below equivalent:
+
+a → b → c
+
+a → (b → c)`;
+
 	public static toFixed(x: number, fractionDigits: number): string { return x.toFixed(fractionDigits); }
 
 	public static init(): void {
@@ -129,9 +173,13 @@ class Strings {
 			Strings.OppositeDecimalSeparator = ".";
 			//Strings.Oops = "Oops\u2026";
 
-			Strings.AntecedentEvaluation = "Antecedente vale Verdadeiro";
+			Strings.AntecedentEvaluation = "Avaliação de Antecedente";
+			Strings.AntecedentEvaluation1 = "Antecedente de ";
+			Strings.AntecedentEvaluation2 = " vale Verdadeiro por causa de";
 			Strings.BiconditionalElimination = "Eliminação de Bicondicional";
-			Strings.ConsequentEvaluation = "Consequente vale Falso";
+			Strings.ConsequentEvaluation = "Avaliação de Consequente";
+			Strings.ConsequentEvaluation1 = "Consequente de ";
+			Strings.ConsequentEvaluation2 = " vale Falso por causa de";
 			Strings.ConstructiveDilemma = "Dilema Construtivo";
 			Strings.DestructiveDilemma = "Dilema Destrutivo";
 			Strings.DisjunctionElimination = "Eliminação de Disjunção";
@@ -155,7 +203,7 @@ class Strings {
 			Strings.LoadEllipsis = "Abrir\u2026";
 			Strings.Save = "Salvar";
 			Strings.SaveEllipsis = "Salvar\u2026";
-			Strings.LoadExample = "Abrir Exemplo";
+			Strings.ShowExplanation = "Mostrar Explicação\u2026";
 			Strings.InstallEllipsis = "Instalar\u2026";
 			Strings.WrapMode = "Quebra de Linha";
 			Strings.Edit = "Edit";
@@ -164,6 +212,7 @@ class Strings {
 			Strings.Disable = "Desabilitar";
 			Strings.Enabled = "Habilitado";
 			Strings.Disabled = "Desabilitado";
+			Strings.Explanation = "Explicação";
 			//Strings.OK = "OK";
 			Strings.Cancel = "Cancelar";
 			Strings.Clear = "Limpar";
@@ -212,6 +261,45 @@ class Strings {
 			Strings.ErrorInconsistentExpression3 = " mas agora é avaliada como ";
 			Strings.ErrorTooManyVariables = "Mais de 256 variáveis declaradas.";
 			Strings.ErrorUnknownVariable = "Variável desconhecida: ";
+
+			Strings.ExplanationBody = `Operadores
+==========
+
+^ & . ∧ ⋅ podem ser utilizados como conjunção (E)
+
+v | ∨ podem ser utilizados como disjunção (OU)
+
+> → ⊃ podem ser utilizados como implicação
+
+= ↔ ≡ podem ser utilizados como bicondicional
+
+~ - ¬ podem ser utilizados como negação
+
+Comentários
+===========
+
+Comentários de uma linha podem ser criados usando o caractere # (tudo após um # é ignorado).
+
+Ordem de Precedência
+====================
+
+As conjunções e disjunções são avaliadas na mesma ordem em que são escritas, da esquerda para a direita. Portanto, as duas expressões abaixo são consideradas equivalentes:
+
+a ∨ b ∧ c ∨ d
+
+((a ∨ b) ∧ c) ∨ d)
+
+Implicações e bicondicionais têm precedência sobre conjunções e disjunções. Da mesma forma, as duas expressões abaixo são equivalentes:
+
+a ∨ b → c ∨ d
+
+(a ∨ b) → (c ∨ d)
+
+Implicações em cascata também são avaliadas da esquerda para a direita, tornando ambas as expressões abaixo equivalentes:
+
+a → b → c
+
+a → (b → c)`;
 		}
 
 		Strings.translateChildren(document.body);

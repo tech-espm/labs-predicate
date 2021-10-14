@@ -96,4 +96,55 @@ class Disjunction extends Connective {
 
 		return (r ? r : (unusedVariables.size ? null : false));
 	}
+
+	public causesForEvaluation(): Axiom[] | null {
+		const operands = this.operands,
+			unusedVariables = this.usedVariables.createIdSet(),
+			causes: Axiom[] = [];
+
+		let r = false;
+
+		for (let i = operands.length - 1; i >= 0; i--) {
+			const v = operands[i].evaluateValue();
+
+			if (v === null)
+				continue;
+
+			unusedVariables.deleteSubset(operands[i].usedVariables);
+
+			const c = operands[i].causesForEvaluation();
+
+			if (v) {
+				r = true;
+				if (c)
+					return c;
+			}
+
+			if (c)
+				causes.push.apply(causes, c);
+		}
+
+		// Compared to evaluateValueInternal(), these two if's are inverted on purpose
+		if ((r || !unusedVariables.size) && causes.length)
+			return causes;
+
+		if (this.containsOppositeOperators)
+			return null;
+
+		const axiomsOfInterest = this.axiomsOfInterest;
+
+		for (let axiomOfInterest of axiomsOfInterest.values()) {
+			const evaluatable = axiomOfInterest.axiom.evaluatable;
+
+			unusedVariables.deleteSubset(evaluatable.usedVariables);
+
+			if (axiomOfInterest.equivalence > 0)
+				return [axiomOfInterest.axiom];
+
+			if (!unusedVariables.size)
+				break;
+		}
+
+		return null;
+	}
 }

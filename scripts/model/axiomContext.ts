@@ -87,12 +87,23 @@ class AxiomContext {
 							axioms[j].checkIfAxiomIsOfInterest(axiom);
 					}
 
-					for (let i = 0; i < axiomsLength; i++)
-						Rule.applyRules(pendingDeductions, deductions, i, axioms);
+					for (let i = 0; i < axiomsLength; i++) {
+						Rule.applyRules1(pendingDeductions, deductions, i, axioms);
+						Rule.applyRules2(pendingDeductions, deductions, i, axioms);
+					}
 				}
 
 				if (!stringDeductions.length) {
 					const deductions = this.deductions;
+
+					if (!deductions.length) {
+						// Apply these rules only as a last resource to try
+						// to reduce the number of useless deductions
+						const axiomsLength = axioms.length;
+
+						for (let i = 0; i < axiomsLength; i++)
+							Rule.applyRules3(pendingDeductions, deductions, i, axioms);
+					}
 
 					while (!stringDeductions.length && deductions.length) {
 						const deduction = deductions.splice(0, 1)[0];
@@ -139,7 +150,8 @@ class AxiomContext {
 
 							Rule.applyRulesOfPendingDeductions(pendingDeductions, deductions);
 
-							Rule.applyRules(pendingDeductions, deductions, previousAxiomsLength, axioms);
+							Rule.applyRules1(pendingDeductions, deductions, previousAxiomsLength, axioms);
+							Rule.applyRules2(pendingDeductions, deductions, previousAxiomsLength, axioms);
 						} catch (ex: any) {
 							deductions.push({
 								error: true,

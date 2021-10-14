@@ -52,10 +52,9 @@ abstract class Rule {
 		Rule.rules3.push(new DestructiveDilemma());
 	}
 
-	public static applyRules(pendingDeductions: PendingDeduction[], deductions: Deduction[], axiomIndex: number, axioms: Axiom[]): void {
-		const lastAxiom = axioms[axiomIndex];
-
-		let rules = Rule.rules;
+	public static applyRules1(pendingDeductions: PendingDeduction[], deductions: Deduction[], axiomIndex: number, axioms: Axiom[]): void {
+		const lastAxiom = axioms[axiomIndex],
+			rules = Rule.rules;
 
 		for (let i = rules.length - 1; i >= 0; i--) {
 			const result = rules[i].apply(lastAxiom);
@@ -70,8 +69,11 @@ abstract class Rule {
 					deductions.push.apply(deductions, result);
 			}
 		}
+	}
 
-		rules = Rule.rules2;
+	public static applyRules2(pendingDeductions: PendingDeduction[], deductions: Deduction[], axiomIndex: number, axioms: Axiom[]): void {
+		const lastAxiom = axioms[axiomIndex],
+			rules = Rule.rules2;
 
 		for (let i = 0; i < axiomIndex; i++) {
 			const axiom = axioms[i];
@@ -90,8 +92,11 @@ abstract class Rule {
 				}
 			}
 		}
+	}
 
-		rules = Rule.rules3;
+	public static applyRules3(pendingDeductions: PendingDeduction[], deductions: Deduction[], axiomIndex: number, axioms: Axiom[]): void {
+		const lastAxiom = axioms[axiomIndex],
+			rules = Rule.rules3;
 
 		for (let i = 0; i < axiomIndex; i++) {
 			const axiom = axioms[i];
@@ -152,20 +157,17 @@ abstract class Rule {
 		return this.name;
 	}
 
-	protected createFullExplanation(name: string, a: Axiom, b?: Axiom, c?: Axiom): string {
-		let explanation = name + ": " + a.id;
+	protected createFullExplanation(name: string, ...axioms: Axiom[]): string {
+		let explanation = name + ": " + axioms[0].id;
 
-		if (b) {
-			explanation += ", " + b.id;
-			if (c)
-				explanation += ", " + c.id;
-		}
+		for (let i = 1; i < axioms.length; i++)
+			explanation += ", " + axioms[i].id;
 
 		return explanation;
 	}
 
-	protected createExplanation(a: Axiom, b?: Axiom, c?: Axiom): string {
-		return this.createFullExplanation(this.name, a, b, c);
+	protected createExplanation(...axioms: Axiom[]): string {
+		return this.createFullExplanation(this.name, ...axioms);
 	}
 
 	// When apply() returns true it means this rule can be applied to these axioms, but not now.

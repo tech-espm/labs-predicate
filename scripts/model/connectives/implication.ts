@@ -100,4 +100,31 @@ class Implication extends Evaluatable {
 
 		return (this.axiomOfInterest ? (this.axiomOfInterest.equivalence > 0) : null);
 	}
+
+	public causesForEvaluation(): Axiom[] | null {
+		// Evaluate all operands in order to check for inconsistencies
+		const a = this.operandA.evaluateValue(),
+			b = this.operandB.evaluateValue();
+
+		if (a === null) {
+			if (b)
+				return this.operandB.causesForEvaluation();
+		} else if (b === null) {
+			if (!a)
+				return this.operandA.causesForEvaluation();
+		} else {
+			const causesA = this.operandA.causesForEvaluation(),
+				causesB = this.operandB.causesForEvaluation();
+			if (causesA && causesB) {
+				causesA.push.apply(causesA, causesB);
+				return causesA;
+			} else if (causesA) {
+				return causesA;
+			} else if (causesB) {
+				return causesB;
+			}
+		}
+
+		return ((this.axiomOfInterest && this.axiomOfInterest.equivalence > 0) ? [this.axiomOfInterest.axiom] : null);
+	}
 }

@@ -62,4 +62,8 @@ class Biconditional extends Evaluatable {
 	protected evaluateValueInternal(): boolean | null {
 		return null;
 	}
+
+	public causesForEvaluation(): Axiom[] | null {
+		return null;
+	}
 }

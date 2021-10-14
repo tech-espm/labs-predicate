@@ -29,6 +29,7 @@ class Variable extends Evaluatable {
 	public readonly name: string;
 	public helperValue: boolean;
 	private assignedValue: boolean | null;
+	private cause: Axiom | null;
 
 	public constructor(id: number, name: string) {
 		super(true);
@@ -37,6 +38,7 @@ class Variable extends Evaluatable {
 		this.name = name;
 		this.helperValue = false;
 		this.assignedValue = null;
+		this.cause = null;
 	}
 
 	public equals(o: ModelObject | null): boolean {
@@ -58,17 +60,21 @@ class Variable extends Evaluatable {
 	public checkIfAxiomIsOfInterest(axiom: Axiom): void {
 		switch (axiom.evaluatable.isEquivalentSomehow(this)) {
 			case 1:
-				if (this.assignedValue === null)
+				if (this.assignedValue === null) {
 					this.assignedValue = true;
-				else if (!this.assignedValue)
+					this.cause = axiom;
+				} else if (!this.assignedValue) {
 					throw new Error(Strings.ErrorVariableAlreadyAssignedToADifferentValue + Strings.False);
+				}
 				break;
 
 			case -1:
-				if (this.assignedValue === null)
+				if (this.assignedValue === null) {
 					this.assignedValue = false;
-				else if (this.assignedValue)
+					this.cause = axiom;
+				} else if (this.assignedValue) {
 					throw new Error(Strings.ErrorVariableAlreadyAssignedToADifferentValue + Strings.True);
+				}
 				break;
 		}
 	}
@@ -83,5 +89,9 @@ class Variable extends Evaluatable {
 
 	protected evaluateValueInternal(): boolean | null {
 		return this.assignedValue;
+	}
+
+	public causesForEvaluation(): Axiom[] | null {
+		return (this.cause ? [this.cause] : null);
 	}
 }
