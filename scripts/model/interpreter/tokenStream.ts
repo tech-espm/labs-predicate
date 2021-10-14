@@ -207,7 +207,8 @@ class TokenStream {
 
 				case 0x003E:
 				case 0x2192:
-				case 0x2283: // > → ⊃ implication
+				case 0x2283:
+				case 0x27F6: // > → ⊃ ⟶ implication (⟶ is not properly supported by the editor because of its width)
 					t = new Token(TokenType.Implication, TokenStrings.Implication, i, this.line, this.lineIndex);
 
 					this.index++;
