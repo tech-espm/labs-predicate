@@ -124,6 +124,7 @@ class Parser {
 		}
 	}
 
+	// parseExpression() considers that both AND and OR have the same precedence
 	private static parseExpression(tokenStream: TokenStream, variables?: VariableCollection | null, axiomContext?: AxiomContext | null): Evaluatable {
 		let operand = Parser.parseUnary(tokenStream, variables, axiomContext),
 			token = tokenStream.peekToken();
@@ -150,8 +151,48 @@ class Parser {
 		return ((lastOperator === TokenType.Conjunction) ? Conjunction.create(operands) : Disjunction.create(operands));
 	}
 
+	private static parseConjunction(tokenStream: TokenStream, variables?: VariableCollection | null, axiomContext?: AxiomContext | null): Evaluatable {
+		let operand = Parser.parseUnary(tokenStream, variables, axiomContext),
+			token = tokenStream.peekToken();
+
+		if (!token || token.type !== TokenType.Conjunction)
+			return operand;
+
+		let operands = [operand];
+
+		while (token && token.type === TokenType.Conjunction) {
+			tokenStream.getToken();
+
+			operands.push(Parser.parseUnary(tokenStream, variables, axiomContext));
+
+			token = tokenStream.peekToken();
+		}
+
+		return Conjunction.create(operands);
+	}
+
+	private static parseDisjunction(tokenStream: TokenStream, variables?: VariableCollection | null, axiomContext?: AxiomContext | null): Evaluatable {
+		let operand = Parser.parseConjunction(tokenStream, variables, axiomContext),
+			token = tokenStream.peekToken();
+
+		if (!token || token.type !== TokenType.Disjunction)
+			return operand;
+
+		let operands = [operand];
+
+		while (token && token.type === TokenType.Disjunction) {
+			tokenStream.getToken();
+
+			operands.push(Parser.parseConjunction(tokenStream, variables, axiomContext));
+
+			token = tokenStream.peekToken();
+		}
+
+		return Disjunction.create(operands);
+	}
+
 	private static parseConditional(tokenStream: TokenStream, variables?: VariableCollection | null, axiomContext?: AxiomContext | null): Evaluatable {
-		let operand = Parser.parseExpression(tokenStream, variables, axiomContext);
+		let operand = Parser.parseDisjunction(tokenStream, variables, axiomContext);
 
 		const token = tokenStream.peekToken();
 
