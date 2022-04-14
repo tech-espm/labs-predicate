@@ -142,11 +142,11 @@ Single-line comments can be created using the character # (everything after a # 
 Order of Precedence
 ===================
 
-Conjunctions and disjunctions are evaluated in the same order they are written, from left to right. Therefore, both expressions below are considered equivalent:
+Conjunctions and disjunctions are evaluated from left to right, and conjunctions take precedence over disjunctions. Therefore, both expressions below are considered equivalent:
 
-a ∨ b ∧ c ∨ d
+a ∨ b ∧ c ∧ d
 
-((a ∨ b) ∧ c) ∨ d)
+a ∨ ((b ∧ c) ∧ d)
 
 Implications and biconditionals take precedence over conjunctions and disjunctions. Likewise, both expressions below are equivalent:
 
@@ -283,11 +283,11 @@ Comentários de uma linha podem ser criados usando o caractere # (tudo após um 
 Ordem de Precedência
 ====================
 
-As conjunções e disjunções são avaliadas na mesma ordem em que são escritas, da esquerda para a direita. Portanto, as duas expressões abaixo são consideradas equivalentes:
+Conjunções e disjunções são avaliadas da esquerda para direita, e conjunções têm precedência sobre disjunções. Portanto, as duas expressões abaixo são consideradas equivalentes:
 
-a ∨ b ∧ c ∨ d
+a ∨ b ∧ c ∧ d
 
-((a ∨ b) ∧ c) ∨ d)
+a ∨ ((b ∧ c) ∧ d)
 
 Implicações e bicondicionais têm precedência sobre conjunções e disjunções. Da mesma forma, as duas expressões abaixo são equivalentes:
 
